@@ -1,8 +1,6 @@
 # LatticeGrid
 
-This is Matlab code that describes a method to regularize raw scattered surface data into a regular lattice. Light scans, such as sonar and LiDAR data, often are segmented into several sections, and each datapoint is irregularly scattered across the surface.
-
-Formalizing several different datasets into a single lattice surface allows for feature visualization and analysis without the compromise of irregularly scattered data that can bias results. The six steps shown here describe a novel original method.
+This is Matlab code that describes a method to regularize raw scattered surface data into a regular lattice. Light scans, such as sonar and LiDAR data, often are segmented into several sections, and each datapoint is irregularly scattered across the surface. Formalizing several different datasets into a single lattice surface allows for feature visualization and analysis without the compromise of irregularly scattered data that can bias results. The six steps shown here describe a novel original method.
 
 #### Step 1
 
@@ -16,9 +14,7 @@ Z=Basin(:,3);Zmin=nanmin(Z);Zmax=nanmax(Z);
 
 #### Step 2
 
-The following two steps are deceitfully simple: the goal is to create a regular lattice from the known edges. First we make regularly spaced points between the edges of the `X` and `Y` dimensions, calling the new regularized vectors `Xi` and `Yi`. Then an empty vector filled with ones of length `Yi` is created as a placeholder for the next step.
-
-The reciprocal of the `step` number is used as the determinant of length, but I haven't figured an elegant way to connect the final vector lengths of `Xi` and `Yi` with code. The specific numbers shown here (0.5479999999:1 ratio) come from manual trial and error. It has to do with Matlab using index start at `1` instead of `0`, but it works!
+The following two steps are deceitfully simple: the goal is to create a regular lattice from the known edges. First we make regularly spaced points between the edges of the `X` and `Y` dimensions, calling the new regularized vectors `Xi` and `Yi`. Then an empty vector filled with ones of length `Yi` is created as a placeholder for the next step. The reciprocal of the `step` number is used as the determinant of length, but I haven't figured an elegant way to connect the final vector lengths of `Xi` and `Yi` with code. The specific numbers shown here (0.5479999999:1 ratio) come from manual trial and error. It has to do with Matlab using index start at `1` instead of `0`, but it works!
 
 ```{}
 step=24999;
@@ -92,9 +88,8 @@ XYZ_Basin=cat(3,newX,newY,newZ);
 
 <img src="https://github.com/dirediredock/dirediredock.github.io/blob/master/images/Method1.png" width="100%">
  
-This can be exported as a .csv file (or .xyz file) for visualizations in graphical engine software. Here a hacky render is created by stithcing together several stills of the model render while slowly changing the theta angle, while the azimuth remains the same.
+This can be exported as a .csv file (or .xyz file) for visualizations in graphical engine software.
 
-<img src="https://i.imgur.com/PTKI0zD.gif" width="100%">
 
 
 
