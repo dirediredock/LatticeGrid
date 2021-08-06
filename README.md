@@ -1,6 +1,6 @@
 # LatticeGrid
 
-This is Matlab code that describes a method to smooth raw scattered surface data into a regular lattice. Datasets from scans, such as Sonar and LIDAR data, often are segmented into several sections, and each datapoint is irregularly scattered across the surface. Formalizing several different datasets into a single lattice surface allows for feature visualization and analysis without the compromise of irregularly scattered data that can bias results. The six steps shown here describe a novel original method.
+This is Matlab code that describes a method to smooth raw scattered surface data into a regular lattice. Datasets from scans, such as Sonar and LIDAR data, often are segmented into several sections, and each datapoint is irregularly scattered across the surface. Formalizing several different datasets into a single lattice surface allows for feature visualization and analysis without the compromise of irregularly scattered data that can bias results. The six steps shown here describe a novel method.
 
 ## Lattice vs Mosaic
 
@@ -16,7 +16,7 @@ Z=Basin(:,3);Zmin=nanmin(Z);Zmax=nanmax(Z);
 
 #### Step 2
 
-The following two steps are deceitfully simple: the goal is to create a regular lattice from the known edges. First we make regularly spaced points between the edges of the `X` and `Y` dimensions, calling the new regularized vectors `Xi` and `Yi`. Then an empty vector filled with ones of length `Yi` is created as a placeholder for the next step. The reciprocal of the `step` number is used as the determinant of length, but I haven't figured an elegant way to connect the final vector lengths of `Xi` and `Yi` with code. The specific numbers shown here (0.5479999999:1 ratio) come from manual trial and error. It has to do with Matlab using index start at `1` instead of `0`, but it works!
+The following two steps are deceitfully simple: the goal is to create a regular lattice from the known edges. First we make regularly spaced points between the edges of the `X` and `Y` dimensions, calling the new regularized vectors `Xi` and `Yi`. Then an empty vector filled with ones of length `Yi` is created as a placeholder for the next step. The reciprocal of the `step` number is used as the determinant of length, but I haven't figured out an elegant way to connect the final vector lengths of `Xi` and `Yi` with code. The specific numbers shown here (0.5479999999:1 ratio) come from manual trial and error. It has to do with Matlab using an index starting at `1` instead of `0`, but it works!
 
 ```{}
 step=24999;
@@ -94,7 +94,7 @@ This can be exported as a .csv file (or .xyz file) for visualizations in graphic
 
 ## Kernel for k-nearest search
 
-Imagine a gigantic chess board and a king piece. In this analogy the model lattice is the board, and the kernel is the king piece. The piece moves one square at a time, linearly, till each column is sweeped, and then moving to the next column, until every chess tile is visited once. This is the basic architecture of how a uniform lattice elevation model is created from a mosaic of eclectic datasets. The kernel size `K` determines how many “neighboring” tiles the king gathers information from, in turn used to assign an average elevation to the visited tile in that iteration. A large `K` is smoothing because it collapses many neighboring tiles into a single value, whereas a small `K` produces a shaper (but more jagged) surface, since it averages a smaller region. Kernel size also determines its shape, which in this case is in the shape of a simplex. A simplex is a polytope that extends into an arbitrary number of dimensions. Described here is the code to visualize a simplex.
+Imagine a gigantic chess board and a king piece. In this analogy the model lattice is the board, and the kernel is the king piece. The piece moves one square at a time, linearly, till each column is sweeped, and then moving to the next column, until every chess tile is visited once. This is the basic architecture of how a uniform lattice elevation model is created from a mosaic of eclectic datasets. The kernel size `K` determines how many “neighboring” tiles the king gathers information from, in turn used to assign an average elevation to the visited tile in that iteration. A large `K` is smoothing because it collapses many neighboring tiles into a single value, whereas a small `K` produces a sharper (but more jagged) surface, since it averages a smaller region. Kernel size also determines its shape, which in this case is in the shape of a simplex. A simplex is a polytope that extends into an arbitrary number of dimensions. Described here is the code to visualize a simplex.
 
 ```{}
 simplex=[3;4;5;6;7;8;9;10];
@@ -143,6 +143,8 @@ end
 
 ## Advanced kernel with angle-forced k-nearest search
 
+Using the same `k` value as the seed for the simplex, the advanced kernel creates a k-sided regular polygon that slices the mosaic data in radial regions, and then performs k-nearest search once per region. This guarantees the simplex, which indeed does arise from noisy mosaic data, is also selecting from all cardinal points for its Z-value calculation. This creates phenomenal smoothing, best interpolation results yet!
+
 <img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel01.png" width="100%">
 <img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel02.png" width="100%">
 <img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel03.png" width="100%">
@@ -153,6 +155,7 @@ end
 <img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel08.png" width="100%">
 <img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel09.png" width="100%">
 <img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel10.png" width="100%">
+
 
 
 
