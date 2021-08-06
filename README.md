@@ -1,6 +1,8 @@
 # LatticeGrid
 
-This is Matlab code that describes a method to regularize raw scattered surface data into a regular lattice. Light scans, such as sonar and LiDAR data, often are segmented into several sections, and each datapoint is irregularly scattered across the surface. Formalizing several different datasets into a single lattice surface allows for feature visualization and analysis without the compromise of irregularly scattered data that can bias results. The six steps shown here describe a novel original method.
+This is Matlab code that describes a method to smooth raw scattered surface data into a regular lattice. Datasets from scans, such as Sonar and LIDAR data, often are segmented into several sections, and each datapoint is irregularly scattered across the surface. Formalizing several different datasets into a single lattice surface allows for feature visualization and analysis without the compromise of irregularly scattered data that can bias results. The six steps shown here describe a novel original method.
+
+## Lattice vs Mosaic
 
 #### Step 1
 
