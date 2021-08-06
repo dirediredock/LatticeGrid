@@ -90,12 +90,53 @@ XYZ_Basin=cat(3,newX,newY,newZ);
  
 This can be exported as a .csv file (or .xyz file) for visualizations in graphical engine software.
 
+## Kernel for k-nearest search
 
+Imagine a gigantic chess board and a king piece. In this analogy the model lattice is the board, and the kernel is the king piece. The piece moves one square at a time, linearly, till each column is sweeped, and then moving to the next column, until every chess tile is visited once. This is the basic architecture of how a uniform lattice elevation model is created from a mosaic of eclectic datasets. The kernel size `K` determines how many “neighboring” tiles the king gathers information from, in turn used to assign an average elevation to the visited tile in that iteration. A large `K` is smoothing because it collapses many neighboring tiles into a single value, whereas a small `K` produces a shaper (but more jagged) surface, since it averages a smaller region. Kernel size also determines its shape, which in this case is in the shape of a simplex. A simplex is a polytope that extends into an arbitrary number of dimensions. Described here is the code to visualize a simplex.
 
+```{}
+simplex=[3;4;5;6;7;8;9;10];
+ 
+poly=nsidedpoly(simplex);
+Z=rescale(rand([simplex,1]),-1,1);
+X=poly.Vertices(:,1);
+Y=poly.Vertices(:,2);
+Kernel=cat(2,X,Y,Z);
+ 
+Xa=[];Ya=[];Za=[];
+Xb=[];Yb=[];Zb=[];
+ 
+figure('Position',[650,10,780,780],'Resize','off','Color','k');hold on;
+set(gca,'CameraViewAngleMode','manual');axis off;axis equal;
+scatter3(Kernel(:,1),Kernel(:,2),Kernel(:,3),0.01,'w','filled');
+scatter3(0,0,0,500,'w','filled');
+ 
+count=0;colors=(plasma(length(Kernel)));
+ 
+for i=1:length(Kernel)
+    A=Kernel(i,:);
+    for q=1:length(Kernel)
+        if q>=i
+        else
+            count=count+1;
+            B=Kernel(q,:);
+            Xa(count)=A(1,1);Ya(count)=A(1,2);Za(count)=A(1,3);
+            Xb(count)=B(1,1);Yb(count)=B(1,2);Zb(count)=B(1,3);
+            plot3([A(1,1);B(1,1)],[A(1,2);B(1,2)],[A(1,3);B(1,3)],'-', ...
+            'Color',colors(i,:),'LineWidth',1);
+            drawnow;pause(0.05);
+        end
+    end
+end
+```
 
+<img src="https://github.com/dirediredock/dirediredock.github.io/blob/master/images/simplex3.png" width="100%">
+<img src="https://github.com/dirediredock/dirediredock.github.io/blob/master/images/simplex4.png" width="100%">
+<img src="https://github.com/dirediredock/dirediredock.github.io/blob/master/images/simplex5.png" width="100%">
+<img src="https://github.com/dirediredock/dirediredock.github.io/blob/master/images/simplex6.png" width="100%">
+<img src="https://github.com/dirediredock/dirediredock.github.io/blob/master/images/simplex7.png" width="100%">
+<img src="https://github.com/dirediredock/dirediredock.github.io/blob/master/images/simplex8.png" width="100%">
+<img src="https://github.com/dirediredock/dirediredock.github.io/blob/master/images/simplex9.png" width="100%">
+<img src="https://github.com/dirediredock/dirediredock.github.io/blob/master/images/simplex10.png" width="100%">
 
-
-Kernel:
-https://github.com/dirediredock/dirediredock.github.io/blob/master/BackupMarkdowns/2020-12-26-Kernel.md
-
-Advanced kernel with angles
+Next, advanced kernel with angle search.
