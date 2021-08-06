@@ -141,7 +141,7 @@ end
 <img src="https://github.com/dirediredock/dirediredock.github.io/blob/master/images/simplex9.png" width="100%">
 <img src="https://github.com/dirediredock/dirediredock.github.io/blob/master/images/simplex10.png" width="100%">
 
-## Advanced kernel with polygon-forced k-nearest search
+## Advanced kernel with angle-forced k-nearest search
 
 <img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel01.png" width="100%">
 <img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel02.png" width="100%">
