@@ -141,4 +141,21 @@ end
 <img src="https://github.com/dirediredock/dirediredock.github.io/blob/master/images/simplex9.png" width="100%">
 <img src="https://github.com/dirediredock/dirediredock.github.io/blob/master/images/simplex10.png" width="100%">
 
-Next, advanced kernel with angle search.
+## Advanced kernel with polygon-forced k-nearest search
+
+<img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel01.png" width="100%">
+<img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel02.png" width="100%">
+<img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel03.png" width="100%">
+<img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel04.png" width="100%">
+<img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel05.png" width="100%">
+<img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel06.png" width="100%">
+<img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel07.png" width="100%">
+<img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel08.png" width="100%">
+<img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel09.png" width="100%">
+<img src="https://raw.githubusercontent.com/dirediredock/LatticeGrid/main/Figures/AngleKernel10.png" width="100%">
+
+
+
+
+
+
